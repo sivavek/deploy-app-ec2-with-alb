@@ -19,68 +19,73 @@ userdata.sh and userdata1.sh files: These bash scripts will be executed on your 
 Note: The AMI ID (ami-0261755bbcb8c4a84) is for us-east-1. If you are deploying to a different AWS region, you must update this AMI ID to a valid one for your chosen region. You can find valid AMIs in the EC2 console or by using the AWS CLI.
 # Project Structure
 
-```.
+```
+.
 ├── main.tf             # Contains the core AWS resource definitions
 ├── variables.tf        # Defines input variables like CIDR blocks
 ├── outputs.tf          # (Optional, but recommended) Defines outputs for easy access to resource attributes
 ├── userdata.sh         # User data script for the first EC2 instance
 └── userdata1.sh        # User data script for the second EC2 instance
-└── README.md           # This file```
+└── README.md           # This file
+```
 
 # Usage
 Follow these steps to deploy the infrastructure:
 
 Clone the Repository:
-
-Bash
-
+```
 git clone <repository_url>
 cd <repository_directory>
+```
+
 Create User Data Scripts:
 Create userdata.sh and userdata1.sh in the same directory as your .tf files. These scripts will run when your EC2 instances launch.
 
 Example userdata.sh (for basic web server):
-Bash
 
+```
 #!/bin/bash
 sudo apt update -y
 sudo apt install -y apache2
 sudo systemctl start apache2
 sudo systemctl enable apache2
 echo "<h1>Hello from EC2 Instance 1!</h1>" | sudo tee /var/www/html/index.html
+```
 Example userdata1.sh (for basic web server):
-Bash
 
+```
 #!/bin/bash
 sudo apt update -y
 sudo apt install -y apache2
 sudo systemctl start apache2
 sudo systemctl enable apache2
 echo "<h1>Hello from EC2 Instance 2!</h1>" | sudo tee /var/www/html/index.html
+```
+
 Initialize Terraform:
 Navigate to the project root directory and initialize Terraform. This downloads the necessary providers.
 
-Bash
-
+```
 terraform init
+```
+
 Review the Plan:
 See what Terraform plans to create without making any changes.
 
-Bash
+`terraform plan`
 
-terraform plan
 You will be prompted to provide values for cidr, sub1_cidr, and sub2_cidr.
 
 Example Variable Values:
-cidr: 10.0.0.0/16
-sub1_cidr: 10.0.1.0/24
-sub2_cidr: 10.0.2.0/24
+> cidr: 10.0.0.0/16
+> sub1_cidr: 10.0.1.0/24
+> sub2_cidr: 10.0.2.0/24
+
 Apply the Configuration:
 If the plan looks good, apply the configuration to provision the resources.
 
-Bash
+`terraform apply`
 
-terraform apply
 Confirm the action by typing yes when prompted.
 
 After Deployment
@@ -88,13 +93,11 @@ Once terraform apply is complete, Terraform will output the ALB DNS name. You ca
 
 You can also use terraform output to retrieve specific values:
 
-Bash
+`terraform output # Lists all defined outputs`
 
-terraform output # Lists all defined outputs
 Cleanup
 To destroy all the provisioned resources, run:
 
-Bash
+`terraform destroy`
 
-terraform destroy
 Type yes when prompted to confirm the deletion. This will tear down all the AWS resources managed by this Terraform configuration.
