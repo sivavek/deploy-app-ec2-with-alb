@@ -19,13 +19,13 @@ userdata.sh and userdata1.sh files: These bash scripts will be executed on your 
 Note: The AMI ID (ami-0261755bbcb8c4a84) is for us-east-1. If you are deploying to a different AWS region, you must update this AMI ID to a valid one for your chosen region. You can find valid AMIs in the EC2 console or by using the AWS CLI.
 # Project Structure
 
-`.
-├── main.tf             # Contains the core AWS resource definitions
-├── variables.tf        # Defines input variables like CIDR blocks
-├── outputs.tf          # (Optional, but recommended) Defines outputs for easy access to resource attributes
-├── userdata.sh         # User data script for the first EC2 instance
-└── userdata1.sh        # User data script for the second EC2 instance
-└── README.md           # This file`
+>`.
+>├── main.tf             # Contains the core AWS resource definitions
+>├── variables.tf        # Defines input variables like CIDR blocks
+>├── outputs.tf          # (Optional, but recommended) Defines outputs for easy access to resource attributes
+>├── userdata.sh         # User data script for the first EC2 instance
+>└── userdata1.sh        # User data script for the second EC2 instance
+>└── README.md           # This file`
 
 # Usage
 Follow these steps to deploy the infrastructure:
